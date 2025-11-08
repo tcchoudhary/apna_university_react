@@ -42,50 +42,50 @@ export default function CounsellingSlider() {
     };
 
     return (
-        <section className="py-12 px-4 md:px-16 bg-white">
-            <div className="max-w-6xl mx-auto">
-                <h3 className="text-sm text-gray-600 font-medium mb-2">
+        <section className="py-16 px-6 md:px-20 bg-gradient-to-b from-indigo-50 via-white to-indigo-50">
+            <div className="max-w-7xl mx-auto text-center mb-12">
+                <h3 className="text-indigo-600 uppercase tracking-widest font-semibold text-sm mb-3">
                     Choose your Destination
                 </h3>
 
-                <h2 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-indigo-900 drop-shadow-lg leading-tight">
                     GMU Admission Counselling
                 </h2>
-
-                <Slider {...settings}>
-                    {counsellingOptions.map((item, i) => (
-                        <div key={i} className="px-3">
-                            <motion.div
-                                whileHover={{ scale: 1.03 }}
-                                className="relative rounded-2xl overflow-hidden h-72 shadow-lg group cursor-pointer"
-                            >
-                                {/* Background Image */}
-                                <div
-                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                                    style={{ backgroundImage: `url(${item.img})` }}
-                                />
-
-                                {/* Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 transition duration-300" />
-
-                                {/* Title */}
-                                <motion.div
-                                    initial={{ y: 30, opacity: 0 }}
-                                    whileInView={{ y: 0, opacity: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5 }}
-                                    className="absolute bottom-6 left-6"
-                                >
-                                    <h3 className="text-white text-xl font-semibold flex items-center gap-2">
-                                        {item.title}
-                                        <ChevronRight className="w-5 h-5 text-white opacity-80 group-hover:translate-x-1 transition" />
-                                    </h3>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    ))}
-                </Slider>
             </div>
+
+            <Slider {...settings}>
+                {counsellingOptions.map((item, i) => (
+                    <div key={i} className="px-4">
+                        <motion.div
+                            whileHover={{ scale: 1.06, boxShadow: "0 20px 40px rgba(99,102,241,0.4)" }}
+                            className="relative rounded-3xl overflow-hidden h-80 shadow-lg bg-white/60 backdrop-blur-md border border-indigo-200 cursor-pointer transition-shadow duration-300"
+                        >
+                            {/* Background Image */}
+                            <div
+                                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                                style={{ backgroundImage: `url(${item.img})` }}
+                            />
+
+                            {/* Gradient Overlay with blur behind text */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/80 via-indigo-900/40 to-transparent" />
+
+                            {/* Text Container */}
+                            <motion.div
+                                initial={{ y: 30, opacity: 0 }}
+                                whileInView={{ y: 0, opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                                className="absolute bottom-8 left-8 right-8"
+                            >
+                                <h3 className="text-white text-3xl font-bold uppercase tracking-wide drop-shadow-lg flex items-center justify-between">
+                                    {item.title}
+                                    <ChevronRight className="w-7 h-7 text-white opacity-90 ml-4 transition-transform duration-300 group-hover:translate-x-3" />
+                                </h3>
+                            </motion.div>
+                        </motion.div>
+                    </div>
+                ))}
+            </Slider>
         </section>
     );
 }

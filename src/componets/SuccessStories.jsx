@@ -14,7 +14,7 @@ export default function SuccessStories() {
                 id: 1,
                 name: "Ananya Mehta",
                 course: "MBBS - Russia",
-                image: "https://source.unsplash.com/200x200/?woman,student",
+                image: "https://randomuser.me/api/portraits/women/65.jpg",
                 quote:
                     "AU guided me at every step! I got into a top Russian medical college with scholarship!",
             },
@@ -22,7 +22,7 @@ export default function SuccessStories() {
                 id: 2,
                 name: "Rohit Verma",
                 course: "MBBS - Georgia",
-                image: "https://source.unsplash.com/200x200/?man,student",
+                image: "https://randomuser.me/api/portraits/men/32.jpg",
                 quote:
                     "Perfect university selection & visa guidance. My journey was stress-free!",
             },
@@ -30,7 +30,7 @@ export default function SuccessStories() {
                 id: 3,
                 name: "Sneha Gupta",
                 course: "BDS - India",
-                image: "https://source.unsplash.com/200x200/?girl,graduate",
+                image: "https://randomuser.me/api/portraits/women/44.jpg",
                 quote:
                     "Got admission in a top BDS college. AU’s team helped at every stage!",
             },
@@ -38,7 +38,7 @@ export default function SuccessStories() {
                 id: 4,
                 name: "Arjun Singh",
                 course: "MD - Philippines",
-                image: "https://source.unsplash.com/200x200/?boy,student",
+                image: "https://randomuser.me/api/portraits/men/41.jpg",
                 quote:
                     "Mock counseling + comparisons changed everything. Highly recommended!",
             },
@@ -68,60 +68,64 @@ export default function SuccessStories() {
                 <title>Success Stories | Apna University</title>
             </Helmet>
 
-            <section className="py-16 bg-gradient-to-b from-white to-blue-50">
-                <div className="max-w-7xl mx-auto px-4 text-center">
+            <section className="py-20 bg-gradient-to-b from-white to-blue-50">
+                <div className="max-w-7xl mx-auto px-6 text-center">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-3xl md:text-4xl font-bold text-gray-800 mb-2"
+                        className="text-4xl font-extrabold mb-3 drop-shadow-sm"
                     >
-                        Our Students’ Success Stories
+                        <span className="text-pink-500">Our Students’</span>{" "}
+                        <span className="text-blue-500">Success Stories</span>
                     </motion.h2>
-                    <p className="text-gray-600 mb-10">
+                    <p className="text-teal-600 max-w-2xl mx-auto mb-14 text-lg">
                         Real journeys of students who turned dreams into reality with AU.
                     </p>
 
+
                     <Slider {...settings}>
                         {stories.map((story, i) => (
-                            <div key={story.id} className="px-3">
+                            <div key={story.id} className="px-4">
                                 <motion.div
-                                    initial={{ opacity: 0, y: 50 }}
+                                    initial={{ opacity: 0, y: 40 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.15, duration: 0.6 }}
                                     whileHover={{
-                                        scale: 1.06,
-                                        backgroundColor: "rgba(230,245,255,1)",
-                                        borderColor: "rgb(37,99,235)",
+                                        scale: 1.05,
                                         boxShadow:
-                                            "0px 25px 40px rgba(30, 64, 175, 0.25)",
+                                            "0 20px 40px rgba(59, 130, 246, 0.3)",
+                                        backgroundColor: "rgba(240, 249, 255, 0.85)",
+                                        borderColor: "rgb(59 130 246)",
                                     }}
                                     className="
-                                        h-[330px]
-                                        bg-white border border-gray-200 
-                                        rounded-2xl shadow-md p-6 
-                                        flex flex-col items-center text-center 
+                                        h-[350px]
+                                        bg-white border border-gray-200
+                                        rounded-3xl shadow-md p-8
+                                        flex flex-col items-center text-center
                                         transition-all duration-300
+                                        cursor-pointer
                                     "
                                 >
                                     <motion.img
                                         src={story.image}
+                                        alt={story.name}
                                         className="
-                                            w-24 h-24 rounded-full object-cover 
-                                            border-4 border-blue-100 shadow-md mb-4
+                                            w-28 h-28 rounded-full object-cover
+                                            border-4 border-blue-100 shadow-lg mb-6
+                                            transition-transform duration-300
                                         "
-                                        whileHover={{ scale: 1.10 }}
-                                        transition={{ duration: 0.3 }}
+                                        whileHover={{ scale: 1.12 }}
                                     />
 
-                                    <p className="text-gray-600 italic text-sm mb-4 line-clamp-3">
+                                    <p className="text-gray-700 italic text-base mb-6 leading-relaxed max-w-[260px] mx-auto">
                                         “{story.quote}”
                                     </p>
 
-                                    <h3 className="text-lg font-semibold text-gray-800">
+                                    <h3 className="text-xl font-semibold text-gray-900">
                                         {story.name}
                                     </h3>
 
-                                    <p className="text-blue-700 font-medium text-sm mt-1">
+                                    <p className="text-blue-600 font-medium text-sm mt-1">
                                         {story.course}
                                     </p>
                                 </motion.div>

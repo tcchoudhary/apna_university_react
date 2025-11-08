@@ -1,63 +1,65 @@
 import { motion } from "framer-motion";
 
-const LOGOS = [
-    "https://upload.wikimedia.org/wikipedia/commons/1/1f/ABP_News_logo.png",
-    "https://upload.wikimedia.org/wikipedia/commons/2/24/News18_India_logo.png",
-    "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/NDTV_India_Logo.png/200px-NDTV_India_Logo.png",
-    "https://upload.wikimedia.org/wikipedia/en/thumb/9/92/Aaj_Tak_Logo.png/220px-Aaj_Tak_Logo.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/India_TV_logo.png/220px-India_TV_logo.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Republic_TV_logo.png/220px-Republic_TV_logo.png",
+const DUMMY_IMAGES = [
+    "https://picsum.photos/300/150?random=1",
+    "https://picsum.photos/300/150?random=2",
+    "https://picsum.photos/300/150?random=3",
+    "https://picsum.photos/300/150?random=4",
+    "https://picsum.photos/300/150?random=5",
+    "https://picsum.photos/300/150?random=6",
 ];
 
 export default function MediaSection() {
-    const duplicatedLogos = [...LOGOS, ...LOGOS];
+    const duplicatedImages = [...DUMMY_IMAGES, ...DUMMY_IMAGES];
 
     return (
-        <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <section className="py-24 bg-gradient-to-b from-purple-50 to-pink-50">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* ----- Heading ----- */}
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                    <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent 
+                                   bg-gradient-to-r from-pink-500 via-red-500 to-yellow-400 animate-gradient">
                         Featured In Top Media Houses
                     </h2>
-                    <p className="text-gray-600 mt-2 text-sm md:text-base">
+                    <p className="text-gray-700 mt-3 text-lg md:text-xl">
                         Trusted by India's leading news and digital media platforms.
                     </p>
                 </div>
 
                 {/* ----- Smooth Marquee Slider ----- */}
-                <div className="overflow-hidden relative py-6">
+                <div className="overflow-hidden relative py-8">
                     <motion.div
                         initial={{ x: 0 }}
                         animate={{ x: "-50%" }}
-                        transition={{ repeat: Infinity, duration: 18, ease: "linear" }}
-                        className="flex items-center gap-10 w-[200%]"
+                        transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+                        className="flex items-center gap-14 w-[200%]"
                     >
-                        {duplicatedLogos.map((src, i) => (
+                        {duplicatedImages.map((src, i) => (
                             <motion.div
                                 key={i}
-                                whileHover={{ scale: 1.15 }}
+                                whileHover={{ scale: 1.25 }}
                                 className="
-                                    bg-white shadow-lg rounded-xl px-6 py-4
+                                    bg-white shadow-2xl rounded-3xl 
                                     flex items-center justify-center
-                                    backdrop-blur-lg border border-gray-200
-                                    hover:shadow-2xl hover:border-blue-300 transition
+                                    backdrop-blur-xl border border-gray-200
+                                    hover:shadow-3xl hover:border-pink-400 transition
+                                    w-72 h-36
                                 "
                             >
                                 <img
                                     src={src}
-                                    alt="media-logo"
-                                    className="h-10 sm:h-14 object-contain opacity-80 hover:opacity-100 transition"
+                                    alt={`media-logo-${i}`}
+                                    className="w-full h-full object-cover rounded-3xl"
                                     loading="lazy"
                                 />
                             </motion.div>
                         ))}
                     </motion.div>
 
-                    {/* Soft Gradient Edge Fade (Professional Look) */}
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent"></div>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent"></div>
+                    {/* Soft Gradient Edge Fade */}
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-purple-50 to-transparent"></div>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-purple-50 to-transparent"></div>
                 </div>
             </div>
         </section>

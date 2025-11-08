@@ -6,50 +6,60 @@ import { Helmet } from "react-helmet";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// Using your uploaded image path here
+const dummyThumbnail1 = "/mnt/data/9ddded05-2d5c-422d-871f-420611268d62.png";
+
 export default function StudentFeedbackSlider() {
     const [videos, setVideos] = useState([]);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
+
         const data = [
             {
                 id: 1,
                 views: "9K",
-                thumbnail: "https://source.unsplash.com/600x1000/?student,blue",
-                videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                title: "Student Success Story 1",
+                thumbnail: dummyThumbnail1,
             },
             {
                 id: 2,
                 views: "7.2K",
-                thumbnail: "https://source.unsplash.com/600x1000/?student,portrait",
-                videoUrl: "https://www.w3schools.com/html/movie.mp4",
+                videoUrl: "https://www.youtube.com/embed/9bZkp7q19f0",
+                title: "Student Success Story 2",
+                thumbnail: "https://source.unsplash.com/600x400/?student,portrait",
             },
             {
                 id: 3,
                 views: "10.4K",
-                thumbnail: "https://source.unsplash.com/600x1000/?students,talking",
-                videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
-            }
+                videoUrl: "https://www.youtube.com/embed/3JZ_D3ELwOQ",
+                title: "Student Success Story 3",
+                thumbnail: "https://source.unsplash.com/600x400/?students,smile",
+            },
         ];
         setVideos(data);
     }, []);
 
-    // ✅ Slider config + arrows
     const settings = {
         dots: false,
         infinite: true,
-        speed: 600,
+        speed: 700,
         slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 4000,
+        autoplaySpeed: 4500,
         arrows: true,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
         responsive: [
             { breakpoint: 1024, settings: { slidesToShow: 2 } },
-            { breakpoint: 640, settings: { slidesToShow: 1 } }
-        ]
+            { breakpoint: 640, settings: { slidesToShow: 1 } },
+        ],
     };
+
+    if (!mounted) return null; // ensures SSR-safe rendering
 
     return (
         <>
@@ -57,44 +67,48 @@ export default function StudentFeedbackSlider() {
                 <title>Trusted Voices | Apna University</title>
             </Helmet>
 
-            <section className="py-16 bg-white">
+            <section className="py-16 bg-gradient-to-b from-purple-50 to-white">
                 <div className="max-w-6xl mx-auto px-4">
-                    {/* Heading */}
-                    <p className="text-gray-500 text-sm font-semibold mb-1">
-                        Trusted Voices
-                    </p>
-                    <h2 className="text-3xl font-bold mb-10">
+                    <p className="text-gray-500 text-sm font-semibold mb-1">Trusted Voices</p>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-10">
                         Hear <span className="text-blue-600">them out</span>
                     </h2>
 
-                    {/* Slider */}
                     <Slider {...settings}>
                         {videos.map((v) => (
                             <div key={v.id} className="px-4">
                                 <motion.div
-                                    whileHover={{ scale: 1.03 }}
-                                    className="rounded-[25px] shadow-lg overflow-hidden bg-white flex flex-col items-center"
+                                    whileHover={{ scale: 1.05, y: -5 }}
+                                    className="relative rounded-2xl shadow-2xl overflow-hidden bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-500 text-white flex flex-col transition-transform duration-300"
                                 >
-                                    {/* ✅ Mobile Frame Top Bar */}
-                                    <div className="w-full bg-gray-200 h-14 rounded-t-[25px] flex justify-center items-center">
-                                        <div className="flex items-center gap-1 bg-white px-3 py-1 rounded-full shadow text-xs font-medium">
-                                            <Eye className="w-4 h-4" />
-                                            {v.views}
-                                        </div>
-                                    </div>
-
-                                    {/* ✅ Video Thumbnail */}
-                                    <div className="relative w-full h-[380px] rounded-b-[25px] overflow-hidden">
+                                    {/* Video Thumbnail */}
+                                    <div className="relative w-full h-[300px] md:h-[350px] lg:h-[380px] overflow-hidden rounded-t-2xl">
                                         <img
                                             src={v.thumbnail}
+                                            alt={v.title}
                                             className="w-full h-full object-cover"
-                                            alt="video"
+                                            onError={(e) => {
+                                                e.currentTarget.src =
+                                                    "https://via.placeholder.com/600x400?text=No+Image";
+                                            }}
                                         />
-
-                                        {/* ✅ Play Icon Overlay */}
-                                        <button className="absolute inset-0 flex justify-center items-center bg-black/30 hover:bg-black/40 transition">
+                                        <motion.a
+                                            href={v.videoUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            whileHover={{ scale: 1.2 }}
+                                            className="absolute inset-0 flex justify-center items-center bg-black/30 hover:bg-black/40 transition duration-300"
+                                        >
                                             <Play className="w-16 h-16 text-white" />
-                                        </button>
+                                        </motion.a>
+                                    </div>
+
+                                    {/* Video Info */}
+                                    <div className="p-5 flex flex-col gap-2">
+                                        <h3 className="text-lg font-semibold">{v.title}</h3>
+                                        <div className="flex items-center gap-2 text-sm text-gray-100">
+                                            <Eye className="w-4 h-4" /> {v.views} views
+                                        </div>
                                     </div>
                                 </motion.div>
                             </div>
@@ -106,25 +120,29 @@ export default function StudentFeedbackSlider() {
     );
 }
 
-/* ✅ Custom Arrows (rounded like screenshot) */
-function NextArrow({ onClick }) {
+// Custom Arrows
+function NextArrow(props) {
+    const { className, style, onClick } = props;
     return (
-        <button
+        <div
+            className={className}
+            style={{ ...style, display: "block", right: "-25px", zIndex: 20 }}
             onClick={onClick}
-            className="absolute right-[-20px] top-1/2 -translate-y-1/2 bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 z-20"
         >
             ›
-        </button>
+        </div>
     );
 }
 
-function PrevArrow({ onClick }) {
+function PrevArrow(props) {
+    const { className, style, onClick } = props;
     return (
-        <button
+        <div
+            className={className}
+            style={{ ...style, display: "block", left: "-25px", zIndex: 20 }}
             onClick={onClick}
-            className="absolute left-[-20px] top-1/2 -translate-y-1/2 bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 z-20"
         >
             ‹
-        </button>
+        </div>
     );
 }

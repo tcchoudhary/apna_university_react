@@ -19,7 +19,6 @@ export default function ProfilePage() {
         avatar: "https://ui-avatars.com/api/?name=Subhash+Mahiya&background=2563eb&color=fff",
     });
 
-    // ---------------- Update Profile API ----------------
     const updateProfile = async (updatedData) => {
         try {
             setLoading(true);
@@ -45,7 +44,6 @@ export default function ProfilePage() {
 
     return (
         <>
-            {/* ---------- SEO Meta Tags ---------- */}
             <Helmet>
                 <title>{`${user.name} | AU Profile`}</title>
                 <meta
@@ -55,34 +53,35 @@ export default function ProfilePage() {
                 <meta name="keywords" content="AU profile, education, student dashboard, user account" />
             </Helmet>
 
-            {/* ---------- Page UI ---------- */}
-            <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 py-10 px-4">
+            <div className="min-h-screen bg-gradient-to-b from-indigo-100 to-blue-50 py-12 px-4">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="bg-white shadow-2xl rounded-2xl p-8 sm:p-10"
+                        className="backdrop-blur-md bg-white/70 shadow-2xl rounded-3xl p-8 sm:p-10 border border-gray-200"
                     >
-                        {/* -------- Header Section -------- */}
+                        {/* Header */}
                         <div className="flex flex-col sm:flex-row items-center gap-6">
-                            <img
-                                src={user.avatar}
-                                alt="User Avatar"
-                                className="w-28 h-28 rounded-full border-4 border-blue-500 shadow-lg"
-                            />
+                            <div className="relative group">
+                                <img
+                                    src={user.avatar}
+                                    alt="User Avatar"
+                                    className="w-28 h-28 rounded-full border-4 border-blue-500 shadow-lg transition-transform duration-300 group-hover:scale-105"
+                                />
+                            </div>
 
                             <div className="text-center sm:text-left flex-1">
                                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{user.name}</h2>
-                                <p className="text-blue-600 font-medium">{user.role}</p>
+                                <p className="text-blue-600 font-semibold mt-1">{user.role}</p>
                                 <p className="text-gray-500 text-sm mt-1">Joined {user.joined}</p>
                             </div>
 
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.97 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={() => setIsEditing(!isEditing)}
-                                className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-xl font-medium hover:bg-blue-700 transition"
+                                className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-2 rounded-2xl font-semibold shadow-md hover:shadow-xl transition"
                             >
                                 {isEditing ? <Save className="w-4 h-4" /> : <Edit3 className="w-4 h-4" />}
                                 {isEditing ? "Save" : "Edit"}
@@ -91,7 +90,7 @@ export default function ProfilePage() {
 
                         <div className="border-t border-gray-200 my-6"></div>
 
-                        {/* -------- User Info Form -------- */}
+                        {/* User Info Form */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             {[
                                 { label: "Full Name", name: "name", icon: <User /> },
@@ -104,7 +103,7 @@ export default function ProfilePage() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 * i }}
-                                    className="bg-blue-50 rounded-xl p-4 flex flex-col"
+                                    className="bg-white/60 backdrop-blur-sm rounded-xl p-4 flex flex-col shadow hover:shadow-lg transition"
                                 >
                                     <div className="flex items-center gap-2 text-gray-500 text-sm mb-2">
                                         {field.icon}
@@ -117,7 +116,7 @@ export default function ProfilePage() {
                                             name={field.name}
                                             value={user[field.name]}
                                             onChange={handleChange}
-                                            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800"
+                                            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 transition"
                                         />
                                     ) : (
                                         <p className="font-medium text-gray-800">{user[field.name]}</p>
@@ -126,7 +125,7 @@ export default function ProfilePage() {
                             ))}
                         </div>
 
-                        {/* -------- Save Button -------- */}
+                        {/* Save Button */}
                         {isEditing && (
                             <div className="flex justify-end mt-8">
                                 <motion.button
@@ -134,9 +133,9 @@ export default function ProfilePage() {
                                     whileTap={{ scale: 0.97 }}
                                     onClick={handleSave}
                                     disabled={loading}
-                                    className={`px-6 py-2 rounded-xl font-medium text-white transition ${loading
+                                    className={`px-6 py-2 rounded-2xl font-semibold text-white transition ${loading
                                         ? "bg-gray-400 cursor-not-allowed"
-                                        : "bg-blue-600 hover:bg-blue-700"
+                                        : "bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-600 hover:to-blue-500 shadow-md hover:shadow-xl"
                                         }`}
                                 >
                                     {loading ? "Saving..." : "Submit Changes"}
@@ -144,7 +143,7 @@ export default function ProfilePage() {
                             </div>
                         )}
 
-                        {/* -------- Feedback Message -------- */}
+                        {/* Feedback Message */}
                         {message && (
                             <p
                                 className={`text-center mt-6 font-medium ${message.type === "success" ? "text-green-600" : "text-red-600"
@@ -159,7 +158,3 @@ export default function ProfilePage() {
         </>
     );
 }
-
-
-
-// Tctctc@#123123
